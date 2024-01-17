@@ -27,4 +27,7 @@ Rune.initLogic({
       game.count += amount
     },
   },
+  update({game}) {
+    //
+  }
 })
