@@ -1,33 +1,29 @@
 import type { RuneClient } from "rune-games-sdk/multiplayer"
+import {Engine} from "matter-js";
+
+const engine = Engine.create()
 
 export interface GameState {
   count: number
 }
 
-type GameActions = {
-  increment: (params: { amount: number }) => void
-}
+type GameActions = NonNullable<unknown>
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-export function getCount(game: GameState) {
-  return game.count
-}
 
 Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 4,
-  setup: (): GameState => {
-    return { count: 0 }
-  },
-  actions: {
-    increment: ({ amount }, { game }) => {
-      game.count += amount
-    },
-  },
+  setup: (): GameState => ({
+    count: 0
+  }),
+  actions: {},
   update({game}) {
+    console.log('game time secs', Rune.gameTimeInSeconds())
+    console.log('game time', Rune.gameTime())
     //
   }
 })
